@@ -1,6 +1,7 @@
 import hashlib
 import json
 import ValidationFunctions as VF
+import getpass
 
 def change_password():
     users_data = []
@@ -18,17 +19,17 @@ def change_password():
     user_found = False
     for user in users_data:
         if user['Email'] == email and user['Mobile Phone'] == phone:
-            Newpassword = input("Enter your new Password: ")
+            Newpassword = getpass.getpass("Enter your new Password: ")
             while not VF.validate_password(Newpassword):
                 print("Invalid password format.")
                 print("Password must be at least 8 characters long.")
                 print("It should contain at least one number, lowercase letter, uppercase letter, and special character.")
-                Newpassword = input("Enter your new Password: ")
+                Newpassword = getpass.getpass("Enter your new Password: ")
 
-            Newconfirm_password = input("Confirm your new Password: ")
+            Newconfirm_password = getpass.getpass("Confirm your new Password: ")
             while Newpassword != Newconfirm_password:
                 print("Passwords do not match.")
-                Newconfirm_password = input("Confirm your new Password: ")
+                Newconfirm_password = getpass.getpass("Confirm your new Password: ")
 
             hashed_new_password = hashlib.sha1(Newpassword.encode()).hexdigest()
             user['Password'] = hashed_new_password

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import getpass
 import ValidationFunctions as VF
 
 
@@ -32,17 +33,17 @@ def register_user():
         print("This email is already registered.")
         email = input("Please Enter your Email: ")
 
-    password = input("Enter your Password: ")
+    password = getpass.getpass("Enter your Password: ")
     while not VF.validate_password(password):
         print("Invalid password format.")
         print("Password must be at least 8 characters long.")
         print("It should contain at least one number, lowercase letter, uppercase letter, and special character.")
-        password = input("Enter your Password: ")
+        password = getpass.getpass("Enter your Password: ")
 
-    confirm_password = input("Confirm your Password: ")
+    confirm_password = getpass.getpass("Confirm your Password: ")
     while password != confirm_password:
         print("Passwords do not match.")
-        confirm_password = input("Confirm your Password: ")
+        confirm_password = getpass.getpass("Confirm your Password: ")
 
     hashed_password = hashlib.sha1(password.encode()).hexdigest()
 
